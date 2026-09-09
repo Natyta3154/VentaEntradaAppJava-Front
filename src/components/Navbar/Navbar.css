@@ -1,0 +1,340 @@
+.navbar {
+  width: 100%;
+  height: 80px;
+  background-color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.nav-content {
+  width: 100%;
+  max-width: 1300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.logo-white {
+  color: #ffffff;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-item {
+  color: #bdc3c7;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-item:hover {
+  color: #ffffff;
+}
+
+/* Línea roja animada bajo los links al pasar el mouse */
+.nav-item::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s;
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+.nav-btn-login {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.nav-btn-login:hover {
+  background-color: #e84118;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+}
+
+
+/* Contenedor del menú de usuario menu desplegable*/
+/* Contenedor del Dropdown */
+.user-dropdown-container {
+  position: relative;
+  display: inline-block;
+  padding: 5px 0;
+}
+
+/* Disparador (Lo que se ve siempre) */
+.user-profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 12px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-profile-trigger:hover {
+  background: rgba(255, 71, 87, 0.1);
+  border-color: var(--primary-color);
+}
+
+/* Avatar Circular */
+.avatar-circle {
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* El Menú Oculto */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 180px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  display: none;
+  /* Escondido */
+  flex-direction: column;
+  padding: 8px;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  /* pseudo-element to bridge any gap */
+}
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 0;
+  right: 0;
+  height: 15px;
+}
+
+/* Mostrar al hacer Hover */
+.user-dropdown-container:hover .dropdown-menu {
+  display: flex;
+  animation: fadeIn 0.2s ease;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  color: #eee;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--primary-color);
+}
+
+.logout-action {
+  color: var(--primary-color);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 5px 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-only {
+  display: none;
+}
+
+/* admin */
+.admin-link {
+  color: #ff4d4d;
+  /* Un rojo salsa llamativo */
+  font-weight: bold;
+}
+
+.admin-link:hover {
+  background-color: rgba(255, 77, 77, 0.1) !important;
+}
+
+/* RESPONSIVIDAD Y MENÚ HAMBURGUESA */
+.mobile-menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .mobile-only {
+    display: flex !important;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
+    background-color: #121212;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s ease-in-out;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    gap: 40px;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-item {
+    font-size: 1.5rem;
+  }
+
+  .navbar.menu-is-open::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+  }
+
+  .nav-auth {
+    margin-right: 40px;
+    /* Espacio para el botón hamburguesa */
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+  }
+
+  .mobile-user-info .avatar-circle {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .mobile-user-info .user-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .mobile-auth-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-item.mobile {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-item.mobile.logout {
+    color: var(--primary-color);
+    background: transparent;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .nav-links {
+    padding: 40px;
+  }
+
+  /* Ajuste para el dropdown en móvil para que no se corte */
+  .dropdown-menu {
+    right: -20px;
+    width: 160px;
+  }
+}

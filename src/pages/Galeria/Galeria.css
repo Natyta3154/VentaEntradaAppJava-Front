@@ -1,0 +1,243 @@
+/* --- CONTENEDOR PRINCIPAL --- */
+.galeria-section {
+    width: 100vw;
+    height: 100vh;
+ 
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background-color: #000;
+    padding: 80px 0 0 0;
+    overflow: hidden;
+}
+
+/* --- CABECERA ELEGANTE --- */
+.galeria-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.subtitle {
+    color: #d4af37; /* Dorado sutil */
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.galeria-title {
+    color: #fff;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-family: 'Playfair Display', serif; /* O una fuente elegante que tengas */
+    margin-top: 10px;
+    font-weight: 300;
+}
+
+.title-underline {
+    width: 60px;
+    height: 2px;
+    background: #d4af37;
+    margin: 20px auto;
+}
+
+/* --- GRID DE ALTO IMPACTO --- */
+.galeria-grid {
+    display: grid;
+    /* Columnas variables según pantalla */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 10px; /* Espacio mínimo para look minimalista */
+    background: #000;
+}
+
+.galeria-item {
+    position: relative;
+    height: 450px; /* Fotos más grandes y elegantes */
+    overflow: hidden;
+    background: #111;
+    cursor: pointer;
+}
+
+.media-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.galeria-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.15, 1, 0.3, 1);
+}
+
+/* --- OVERLAY ESTILO LUXURY --- */
+.galeria-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(0, 0, 0, 0.2) 50%, 
+        transparent 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: 40px;
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.overlay-content {
+    transform: translateY(30px);
+    transition: transform 0.5s ease;
+}
+
+.item-category {
+    color: #d4af37;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.item-title {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.view-button {
+    color: #fff;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid #d4af37;
+    display: inline-block;
+    padding-bottom: 3px;
+    letter-spacing: 2px;
+}
+
+/* --- HOVER EFFECTS --- */
+.galeria-item:hover .galeria-media {
+    transform: scale(1.1) rotate(1deg);
+}
+
+.galeria-item:hover .galeria-overlay {
+    opacity: 1;
+}
+
+.galeria-item:hover .overlay-content {
+    transform: translateY(0);
+}
+
+/* --- BADGE VIDEO --- */
+.video-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* --- LOADER --- */
+.galeria-loader {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #d4af37;
+    background: #000;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(212, 175, 55, 0.1);
+    border-top: 2px solid #d4af37;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .galeria-item { height: 300px; }
+    .galeria-grid { grid-template-columns: repeat(auto-fill, minmax(50%, 1fr)); }
+}
+
+
+/* --- ESTILOS DEL LIGHTBOX --- */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95); /* Fondo casi negro total */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* Por encima de todo */
+    cursor: zoom-out;
+    animation: fadeIn 0.3s ease;
+}
+
+.lightbox-image {
+    max-width: 90%;
+    max-height: 85vh;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    object-fit: contain;
+    animation: zoomIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    cursor: default;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 50px;
+    font-weight: 200;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.lightbox-close:hover {
+    transform: scale(1.2);
+    color: #d4af37;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Ajuste preventivo para el body cuando el modal está abierto */
+body:has(.lightbox-overlay) {
+    overflow: hidden; /* Evita que el fondo se mueva mientras ves la foto */
+}

@@ -1,0 +1,204 @@
+.event-card {
+  background: #111;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s;
+}
+
+.event-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--primary-color);
+}
+
+.event-image {
+  height: 220px;
+  position: relative;
+}
+
+.event-image img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.date-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0,0,0,0.8);
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--primary-color);
+  text-align: center;
+}
+
+.date-badge .day { 
+  display: block; 
+  font-size: 1.4rem; 
+  font-weight: 900; 
+}
+
+.date-badge .month { 
+  font-size: 0.7rem; 
+  color: var(--primary-color); 
+  font-weight: 800; 
+}
+
+.event-info { 
+  padding: 20px; 
+}
+
+.event-info h3 { 
+    font-size: 1.4rem; 
+    margin-bottom: 12px; 
+    text-transform: uppercase; 
+    letter-spacing: 1.5px; 
+    font-weight: 950;
+}
+
+.event-details { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 6px; 
+    margin-bottom: 24px; 
+}
+
+.event-details span { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    color: #a0a0a0; 
+    font-size: 0.8rem; 
+}
+
+/* DJ/Artist highlight */
+.event-djs-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(90deg, rgba(255, 71, 87, 0.1) 0%, transparent 100%);
+    padding: 6px 12px;
+    border-left: 3px solid var(--primary-color);
+    margin-bottom: 12px;
+    width: fit-content;
+}
+
+.event-djs {
+    color: var(--primary-color) !important;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 1rem !important;
+    letter-spacing: 1px;
+}
+
+.event-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.event-footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.current-price-display {
+    display: flex;
+    flex-direction: column;
+}
+
+.price-tag {
+    font-size: 1.8rem;
+    font-weight: 950;
+    color: white;
+    letter-spacing: -0.5px;
+}
+
+/* BADGES DE ESTADO DE TICKETS */
+.ticket-badge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 6px 15px;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 0 8px 0 0;
+    z-index: 5;
+    box-shadow: 2px -2px 10px rgba(0,0,0,0.3);
+}
+
+.ticket-badge.sold-out {
+    background: #444;
+    color: #888;
+}
+
+.ticket-badge.urgency {
+    background: #ff9f43; /* Color Naranja Urgencia */
+    animation: pulseUrgency 1.5s infinite;
+}
+
+@keyframes pulseUrgency {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.event-card.sold-out {
+    opacity: 0.8;
+    filter: grayscale(0.5);
+}
+
+.event-card.sold-out:hover {
+    transform: none;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* LISTA DE PRECIOS */
+.price-phases-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 5px;
+}
+
+.phase-price-item {
+    font-size: 0.8rem;
+    color: #a0a0a0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.phase-price-item.active {
+    color: white;
+    font-weight: 900;
+    font-size: 1.15rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+    background: rgba(255, 71, 87, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px 4px 0 0;
+}
+
+.phase-price-item.active .phase-name {
+    color: var(--primary-color);
+}
+
+.phase-price-item.exhausted {
+    text-decoration: line-through;
+    opacity: 0.4;
+}
+
+.phase-val {
+    font-weight: 700;
+}

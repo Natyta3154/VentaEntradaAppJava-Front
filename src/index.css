@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reseteo para que el navegador no meta márgenes raros */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Cyberpunk / Neon Nights Palette */
+  --bg-main: #09090b;      /* Zinc 950 */
+  --bg-secondary: #18181b; /* Zinc 900 */
+  --bg-card: rgba(24, 24, 27, 0.7); /* Translucent */
+  
+  --primary-color: #8b5cf6; /* Violet */
+  --primary-hover: #7c3aed;
+  --secondary-color: #d946ef; /* Fuchsia */
+  --accent-neon: #06b6d4; /* Cyan */
+  
+  --text-main: #f8fafc; /* Slate 50 */
+  --text-secondary: #94a3b8; /* Slate 400 */
+  --text-muted: #64748b; /* Slate 500 */
+  
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-highlight: rgba(139, 92, 246, 0.4); /* Violet subtle border */
+  
+  --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  --gradient-card: linear-gradient(145deg, rgba(24, 24, 27, 0.9), rgba(9, 9, 11, 0.9));
+
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--bg-main);
+  display: block;
+}
+/* Este es el contenedor donde React renderiza todo */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
