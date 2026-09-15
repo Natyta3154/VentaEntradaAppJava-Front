@@ -16,6 +16,7 @@ const Perfil = lazy(() => import('./pages/Perfil/Perfil'));
 const Galeria = lazy(() => import('./pages/Galeria/Galeria'));
 const Scanner = lazy(() => import('./pages/Admin/Scanner/Scanner'));
 const QuienesSomos = lazy(() => import('./pages/QuienesSomos/QuienesSomos'));
+const Contacto = lazy(() => import('./pages/Contacto/Contacto'));
 
 // Admin Pages
 const AdminLayout = lazy(() => import('./pages/Admin/Layout/AdminLayout'));
@@ -25,6 +26,7 @@ const UsuariosList = lazy(() => import('./pages/Admin/Usuarios/UsuariosList'));
 const VentasList = lazy(() => import('./pages/Admin/Ventas/VentasList'));
 const ArtistasList = lazy(() => import('./pages/Admin/Artistas/ArtistasList'));
 const GaleriaList = lazy(() => import('./pages/Admin/Galeria/GaleriaList'));
+const ContactosList = lazy(() => import('./pages/Admin/Contactos/ContactosList'));
 const AdminRoute = lazy(() => import('./components/AdminRoute'));
 
 // Simple Loading Component
@@ -64,7 +66,7 @@ function App() {
               <Route path="/registro" element={<><Navbar /><div style={{ paddingTop: '80px' }}><Registro /></div><Footer /></>} />
               <Route path="/galeria" element={<><Navbar /><div style={{ paddingTop: '80px' }}><Galeria /></div><Footer /></>} />
               <Route path="/quienes-somos" element={<><Navbar /><div style={{ paddingTop: '80px' }}><QuienesSomos /></div><Footer /></>} />
-              <Route path="/contacto" element={<><Navbar /><div style={{ paddingTop: '80px', padding: '50px', textAlign: 'center' }}><h2>Ponte en contacto</h2></div><Footer /></>} />
+              <Route path="/contacto" element={<><Navbar /><div style={{ paddingTop: '80px' }}><Contacto /></div><Footer /></>} />
 
               {/* Rutas Privadas */}
               <Route
@@ -121,6 +123,7 @@ function App() {
                 <Route path="usuarios" element={<UsuariosList />} />
                 <Route path="ventas" element={<VentasList />} />
                 <Route path="galeria" element={<GaleriaList />} />
+                <Route path="contactos" element={<ContactosList />} />
               </Route>
             </Routes>
           </Suspense>

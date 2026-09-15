@@ -35,7 +35,7 @@
 }
 
 .tickets-header p {
-  color: #a0a0a0;
+  color: #8b8a8a;
   font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: 3px;
@@ -65,7 +65,7 @@
 .event-info-main h2 {
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 950;
-  color: white;
+  color: rgb(252, 252, 252);
   text-transform: uppercase;
   margin: 10px 0;
   letter-spacing: 1px;

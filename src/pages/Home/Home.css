@@ -419,7 +419,7 @@
 /* CARTELLERA SECTION */
 .events-section {
   padding: 100px 0;
-  background-color: #0f0f0f;
+  background-color: #020202;
 }
 
 .section-header {
@@ -443,7 +443,7 @@
 }
 
 .event-card {
-  background: #111;
+  background: #3a3838;
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid var(--glass);

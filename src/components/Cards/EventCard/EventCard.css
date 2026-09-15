@@ -1,3 +1,4 @@
+/* Contenedor principal de la tarjeta del evento */
 .event-card {
   background: #111;
   border-radius: 8px;
@@ -6,22 +7,26 @@
   transition: transform 0.3s;
 }
 
+/* Efecto hover (al pasar el mouse) sobre la tarjeta principal */
 .event-card:hover {
   transform: translateY(-10px);
   border-color: var(--primary-color);
 }
 
+/* Contenedor de la imagen del evento */
 .event-image {
   height: 220px;
   position: relative;
 }
 
+/* Ajustes de la imagen dentro de su contenedor para que ocupe todo el espacio */
 .event-image img { 
   width: 100%; 
   height: 100%; 
   object-fit: cover; 
 }
 
+/* Etiqueta flotante que muestra la fecha (día y mes) */
 .date-badge {
   position: absolute;
   top: 15px;
@@ -33,30 +38,37 @@
   text-align: center;
 }
 
+/* Estilo para el día dentro de la etiqueta de fecha */
 .date-badge .day { 
+    color: white;
   display: block; 
   font-size: 1.4rem; 
   font-weight: 900; 
 }
 
+/* Estilo para el mes dentro de la etiqueta de fecha */
 .date-badge .month { 
   font-size: 0.7rem; 
   color: var(--primary-color); 
   font-weight: 800; 
 }
 
+/* Contenedor de la información detallada del evento (título, lugar, fecha) */
 .event-info { 
   padding: 20px; 
 }
 
+/* Titulo de la tarjeta de ticket del home */
 .event-info h3 { 
     font-size: 1.4rem; 
     margin-bottom: 12px; 
     text-transform: uppercase; 
     letter-spacing: 1.5px; 
     font-weight: 950;
+    color: white;
 }
 
+/* Contenedor para los detalles menores del evento (ubicación y horario) */
 .event-details { 
     display: flex; 
     flex-direction: column; 
@@ -64,26 +76,28 @@
     margin-bottom: 24px; 
 }
 
+/* Estilo de los textos e iconos dentro de los detalles del evento */
 .event-details span { 
     display: flex; 
     align-items: center; 
     gap: 10px; 
-    color: #a0a0a0; 
+    color: #d3cccc; 
     font-size: 0.8rem; 
 }
 
-/* DJ/Artist highlight */
+/* Contenedor destacado para los nombres de los artistas o DJs */
 .event-djs-container {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: linear-gradient(90deg, rgba(255, 71, 87, 0.1) 0%, transparent 100%);
+    background: linear-gradient(90deg, rgba(243, 240, 241, 0.1) 0%, transparent 100%);
     padding: 6px 12px;
     border-left: 3px solid var(--primary-color);
     margin-bottom: 12px;
     width: fit-content;
 }
 
+/* Estilo del texto de los nombres de los artistas o DJs */
 .event-djs {
     color: var(--primary-color) !important;
     font-weight: 900;
@@ -92,6 +106,7 @@
     letter-spacing: 1px;
 }
 
+/* Contenedor inferior de la tarjeta (donde van los precios y el botón de comprar) */
 .event-footer {
   display: flex;
   flex-direction: column;
@@ -100,6 +115,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* Sección que agrupa el precio actual y el botón de compra en la misma línea */
 .event-footer-bottom {
     display: flex;
     justify-content: space-between;
@@ -107,11 +123,13 @@
     width: 100%;
 }
 
+/* Contenedor para mostrar el precio actual destacado */
 .current-price-display {
     display: flex;
     flex-direction: column;
 }
 
+/* Etiqueta del precio destacado grande */
 .price-tag {
     font-size: 1.8rem;
     font-weight: 950;
@@ -119,7 +137,7 @@
     letter-spacing: -0.5px;
 }
 
-/* BADGES DE ESTADO DE TICKETS */
+/* Etiqueta flotante de estado sobre la imagen (ej: "Anticipada", "Agotado") */
 .ticket-badge {
     position: absolute;
     bottom: 0;
@@ -136,33 +154,38 @@
     box-shadow: 2px -2px 10px rgba(0,0,0,0.3);
 }
 
+/* Variante de la etiqueta de estado cuando las entradas están agotadas */
 .ticket-badge.sold-out {
     background: #444;
     color: #888;
 }
 
+/* Variante de la etiqueta de estado para indicar urgencia (ej: "Últimas") */
 .ticket-badge.urgency {
     background: #ff9f43; /* Color Naranja Urgencia */
     animation: pulseUrgency 1.5s infinite;
 }
 
+/* Animación de latido para la etiqueta de urgencia */
 @keyframes pulseUrgency {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
 
+/* Filtro visual para oscurecer y poner en gris la tarjeta entera cuando está agotada */
 .event-card.sold-out {
     opacity: 0.8;
     filter: grayscale(0.5);
 }
 
+/* Desactiva el efecto hover en la tarjeta si está agotada */
 .event-card.sold-out:hover {
     transform: none;
     border-color: rgba(255, 255, 255, 0.05);
 }
 
-/* LISTA DE PRECIOS */
+/* Contenedor de la lista de fases de precios (fase 1, fase 2, etc.) */
 .price-phases-list {
     display: flex;
     flex-direction: column;
@@ -170,6 +193,7 @@
     margin-bottom: 5px;
 }
 
+/* Cada ítem individual de la lista de fases de precios */
 .phase-price-item {
     font-size: 0.8rem;
     color: #a0a0a0;
@@ -178,6 +202,7 @@
     width: 100%;
 }
 
+/* Estilo para resaltar la fase de precio que está actualmente activa */
 .phase-price-item.active {
     color: white;
     font-weight: 900;
@@ -190,15 +215,18 @@
     border-radius: 4px 4px 0 0;
 }
 
+/* Resalta el nombre de la fase activa con el color primario */
 .phase-price-item.active .phase-name {
     color: var(--primary-color);
 }
 
+/* Estilo para fases de precios agotadas (texto tachado y opaco) */
 .phase-price-item.exhausted {
     text-decoration: line-through;
     opacity: 0.4;
 }
 
+/* Estilo del valor o monto dentro de las fases de precio */
 .phase-val {
     font-weight: 700;
 }

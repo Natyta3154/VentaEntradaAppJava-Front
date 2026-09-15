@@ -52,6 +52,7 @@ const Navbar = () => {
           <Link to="/galeria" className="nav-item" onClick={() => setMenuOpen(false)}>Galería</Link>
           <Link to="/tickets" className="nav-item" onClick={() => setMenuOpen(false)}>Tickets</Link>
           <Link to="/quienes-somos" className="nav-item" onClick={() => setMenuOpen(false)}>Quiénes Somos</Link>
+          <Link to="/contacto" className="nav-item" onClick={() => setMenuOpen(false)}>Contacto</Link>
 
           {/* MOBILE-ONLY ACTIONS */}
           {menuOpen && isLogged && (

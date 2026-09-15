@@ -20,7 +20,7 @@ const Galeria = () => {
     <section className="galeria-section">
       <div className="galeria-header">
         <span className="subtitle">Nuestros Recuerdos</span>
-        <h2 className="galeria-title">Momentos Salseros</h2>
+        <h2 className="galeria-title">Momentos de los eventos</h2>
         <div className="title-underline"></div>
       </div>
 

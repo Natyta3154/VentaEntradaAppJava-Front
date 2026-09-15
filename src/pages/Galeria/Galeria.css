@@ -8,7 +8,7 @@
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    background-color: #000;
+    background-color: #313135;
     padding: 80px 0 0 0;
     overflow: hidden;
 }
@@ -20,7 +20,7 @@
 }
 
 .subtitle {
-    color: #d4af37; /* Dorado sutil */
+    color: var(--primary-color);
     text-transform: uppercase;
     letter-spacing: 5px;
     font-size: 0.8rem;
@@ -48,14 +48,15 @@
     /* Columnas variables según pantalla */
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 10px; /* Espacio mínimo para look minimalista */
-    background: #000;
+    /*background: #686565;*/
+    
 }
 
 .galeria-item {
     position: relative;
     height: 450px; /* Fotos más grandes y elegantes */
     overflow: hidden;
-    background: #111;
+    /*background: #111;*/
     cursor: pointer;
 }
 
@@ -70,6 +71,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 1.2s cubic-bezier(0.15, 1, 0.3, 1);
+    border-radius: 40px;
 }
 
 /* --- OVERLAY ESTILO LUXURY --- */
@@ -87,6 +89,7 @@
     padding: 40px;
     opacity: 0;
     transition: all 0.5s ease;
+
 }
 
 .overlay-content {
@@ -206,6 +209,7 @@
     object-fit: contain;
     animation: zoomIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     cursor: default;
+    
 }
 
 .lightbox-close {

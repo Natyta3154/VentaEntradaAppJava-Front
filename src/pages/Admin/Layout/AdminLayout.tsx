@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Calendar, Users, Ticket, Menu, X, LogOut, ChevronLeft, Image } from 'lucide-react';
+import { LayoutDashboard, Calendar, Users, Ticket, Menu, X, LogOut, ChevronLeft, Image, Mail } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext';
 
 const AdminLayout = () => {
@@ -24,7 +24,8 @@ const AdminLayout = () => {
         { path: '/admin/artistas', icon: Users, label: 'Artistas' },
         { path: '/admin/usuarios', icon: Users, label: 'Usuarios' },
         { path: '/admin/ventas', icon: Ticket, label: 'Ventas y Entradas' },
-        { path: '/admin/galeria', icon: Image, label: 'Galería' }
+        { path: '/admin/galeria', icon: Image, label: 'Galería' },
+        { path: '/admin/contactos', icon: Mail, label: 'Contactos' }
     ];
 
     return (
