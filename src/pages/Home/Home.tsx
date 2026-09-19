@@ -20,6 +20,7 @@ import api from '../../api/api';
 import { Evento } from '../../services/eventoService';
 import { Artista } from '../../services/artistaService';
 import { eventoService } from '../../services/eventoService';
+import SEO from '../../components/SEO/SEO';
 // --- COMPONENTE PRINCIPAL ---
 
 const Home = () => {
@@ -103,8 +104,39 @@ const Home = () => {
         gallery: Array(6).fill(0)
     }), []);
 
+    // Schema.org Structured Data for Rich Snippets
+    const schemaData = useMemo(() => {
+        if (!nextEvento) return null;
+        return {
+            '@context': 'https://schema.org',
+            '@type': 'DanceEvent',
+            name: nextEvento.titulo,
+            startDate: nextEvento.fecha,
+            description: nextEvento.descripcion || 'Conéctate con la esencia del baile en los eventos más exclusivos de salsa.',
+            image: nextEvento.imagenUrl || '/img/photo-hero.webp',
+            location: {
+                '@type': 'Place',
+                name: nextEvento.lugar,
+                address: {
+                    '@type': 'PostalAddress',
+                    addressLocality: nextEvento.ciudad
+                }
+            },
+            organizer: {
+                '@type': 'Organization',
+                name: 'NochePass',
+                url: 'https://nochepass.com'
+            }
+        };
+    }, [nextEvento]);
+
     return (
         <div className="home-container">
+            <SEO
+                title="Tu Noche, Tu Entrada"
+                description="Descubrí los mejores eventos, comprá tu entrada y disfrutá una noche inolvidable con NochePass."
+                schemaData={schemaData}
+            />
             {/* HERO SECTION */}
             <section className="hero">
                 <img
@@ -121,10 +153,11 @@ const Home = () => {
                 <div className="hero-content">
                     <span className="hero-tagline">LA EXPERIENCIA DEFINITIVA</span>
                     <h1>
-                        Siente el Ritmo, <br />
-                        <span className="highlight">Vive la Salsa</span>
+                        Tu Noche, <br />
+                        <span className="highlight">Tu Entrada</span>
                     </h1>
-                    <p>Conéctate con la esencia del baile en los eventos más exclusivos.</p>
+                    <p>Descubrí los mejores eventos, comprá tu entrada y disfrutá una noche inolvidable.</p>
+
 
                     <div className="hero-actions">
                         <Button variant="primary" onClick={scrollToEventos}>

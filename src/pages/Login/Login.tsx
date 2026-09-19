@@ -4,6 +4,7 @@ import './Login.css';
 import { useLogin } from "../../hooks/useLogin.js";
 
 import { User, Lock, ArrowRight } from 'lucide-react';
+import SEO from '../../components/SEO/SEO';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -18,13 +19,17 @@ const Login = () => {
 
     return (
         <div className="login-page">
+            <SEO
+                title="Iniciar Sesión"
+                description="Inicia sesión en NochePass para acceder a tus tickets, perfil y beneficios exclusivos."
+            />
             <div className="login-card">
                 <header className="auth-header">
                     <div className="auth-icon-wrapper">
                         <User size={32} />
                     </div>
                     <h2>¡BIENVENIDO! 🕺</h2>
-                    <p>Inicia sesión para vivir la mejor experiencia de salsa.</p>
+                    <p>Inicia sesión para vivir la mejor experiencia en NochePass.</p>
                 </header>
 
                 <form className="auth-form" onSubmit={handleSubmit}>

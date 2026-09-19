@@ -1,10 +1,16 @@
 import React from 'react';
 import './QuienesSomos.css';
 import { Users, Heart, Music, Award } from 'lucide-react';
+import SEO from '../../components/SEO/SEO';
 
 const QuienesSomos = () => {
     return (
         <div className="quienes-somos-container">
+            <SEO
+                title="Quiénes Somos"
+                description="Conoce nuestra historia, equipo y pasión en NochePass. Tu Noche, Tu Entrada."
+                keywords="quienes somos NochePass, equipo NochePass, historia NochePass, eventos, fiestas"
+            />
             {/* HERO SECTION */}
             <section className="qs-hero">
                 <img 

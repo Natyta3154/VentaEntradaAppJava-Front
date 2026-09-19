@@ -9,6 +9,7 @@ import Skeleton from '../../components/UI/Skeleton/Skeleton';
 
 // Global Components
 import TicketTierCard from '../../components/Cards/TicketTierCard/TicketTierCard';
+import SEO from '../../components/SEO/SEO';
 
 const Tickets = () => {
   const navigate = useNavigate();
@@ -62,6 +63,11 @@ const Tickets = () => {
 
   return (
     <div className="tickets-page">
+      <SEO
+        title="Entradas"
+        description="Asegurá tu lugar en las mejores fiestas y eventos exclusivos con NochePass. Comprá tus entradas oficiales de forma rápida y segura."
+        keywords="entradas, tickets, fiestas, boliches, NochePass, comprar entradas"
+      />
       <header className="tickets-header">
         <h1>ASEGURA TU <span>PRÓXIMA NOCHE</span></h1>
         <p>Selecciona tu entrada para los eventos más exclusivos de salsa</p>

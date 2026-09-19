@@ -4,6 +4,7 @@ import { contactoService, MensajeContacto } from '../../services/contactoService
 import Button from '../../components/UI/Button/Button';
 import toast from 'react-hot-toast';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import SEO from '../../components/SEO/SEO';
 
 const Contacto = () => {
     const [formData, setFormData] = useState<MensajeContacto>({
@@ -36,6 +37,11 @@ const Contacto = () => {
 
     return (
         <div className="contacto-page">
+            <SEO
+                title="Contacto"
+                description="Ponte en contacto con EntradaYa para consultas, reservas VIP, eventos privados y dudas sobre compra de entradas."
+                keywords="contacto, EntradaYa, eventos, EntradaYa, reservas, EntradaYa, consultas, EntradaYa, dudas sobre compra de entradas, EntradaYa"
+            />
             <div className="contacto-header">
                 <h1 className="glitch" data-text="CONTÁCTANOS">CONTÁCTANOS</h1>
                 <p className="subtitle">¿Tienes alguna duda o consulta? Estamos aquí para ayudarte.</p>

@@ -3,6 +3,7 @@ import { useRegistro } from "../../hooks/useRegistro.js";
 import { useNavigate, Link } from "react-router-dom";
 import './Registro.css';
 import { Eye, EyeOff, User, Mail, Lock, UserPlus, ArrowRight } from 'lucide-react';
+import SEO from '../../components/SEO/SEO';
 
 const Registro = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -38,19 +39,23 @@ const Registro = () => {
         });
 
         if (res.success) {
-            alert("¡Registro exitoso! 💃");
+            alert("¡Registro exitoso!");
             navigate('/login');
         }
     };
 
     return (
         <div className="login-page">
+            <SEO
+                title="Crear Cuenta"
+                description="Únete a la comunidad de NochePass, compra tus entradas anticipadas y accede a promociones exclusivas."
+            />
             <div className="login-card registro">
                 <header className="auth-header">
                     <div className="auth-icon-wrapper">
                         <UserPlus size={32} />
                     </div>
-                    <h2>ÚNETE A LA RUMBA 💃</h2>
+                    <h2>ÚNETE A LA RUMBA </h2>
                     <p>Crea tu cuenta para comprar tus entradas.</p>
                 </header>
 

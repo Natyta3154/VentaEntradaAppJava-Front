@@ -28,8 +28,9 @@ const Navbar = () => {
     <nav className={`navbar ${menuOpen ? 'menu-is-open' : ''}`}>
       <div className="nav-content">
         <Link to="/" className="nav-logo" onClick={() => setMenuOpen(false)}>
-          <Ticket className="logo-icon" size={28} />
-          <span>PARTY <span className="logo-white">CLUB & LATINEVENTS</span></span>
+          {/*<Ticket className="logo-icon" size={28} />*/}
+          <img src="/img/logo.png" alt="logo"  width={50}/> {/* 150px ancho, alto se ajusta solo */}
+          <span>NOCHE<span className="logo-white">PASS</span></span>
         </Link>
 
         {/* HAMBURGER BUTTON */}

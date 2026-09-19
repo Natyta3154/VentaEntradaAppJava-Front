@@ -259,3 +259,16 @@
   min-width: 20px;
   text-align: center;
 }
+
+@media (max-width: 640px) {
+  .ticket-tier-card {
+    padding: 36px 20px;
+    min-height: 420px;
+  }
+  .tier-title {
+    font-size: 2rem;
+  }
+  .tier-price {
+    font-size: 3rem;
+  }
+}

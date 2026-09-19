@@ -11,10 +11,10 @@ const Footer: React.FC = () => {
                 <div className="footer-brand">
                     <div className="footer-logo">
                         <Music2 className="logo-icon" />
-                        <h2>SALS<span>APP</span></h2>
+                        <h2>NOCHE<span>PASS</span></h2>
                     </div>
                     <p className="footer-desc">
-                        La noche, el ritmo y la pasión se encuentran en un solo lugar. Conectamos a los mejores bailadores con los eventos más vibrantes del mundo.
+                        Tu Noche, Tu Entrada. Descubrí y asegurá tu lugar en las mejores fiestas, boliches y eventos exclusivos.
                     </p>
                     <div className="social-links">
                         <a href="#" className="social-icon" aria-label="Facebook"><Facebook size={20} /></a>
@@ -28,9 +28,9 @@ const Footer: React.FC = () => {
                     <h3>EXPLORAR</h3>
                     <ul>
                         <li><Link to="/">Inicio</Link></li>
-                        <li><Link to="/eventos">Cartelera</Link></li>
+                        <li><Link to="/tickets">Cartelera</Link></li>
                         <li><Link to="/galeria">Experiencias</Link></li>
-                        <li><Link to="/tickets">Mis Tickets</Link></li>
+                        <li><Link to="/perfil">Mis Tickets</Link></li>
                     </ul>
                 </div>
 
@@ -38,27 +38,27 @@ const Footer: React.FC = () => {
                 <div className="footer-links">
                     <h3>CATEGORÍAS</h3>
                     <ul>
-                        <li><a href="#">Conciertos</a></li>
-                        <li><a href="#">Talleres</a></li>
-                        <li><a href="#">Sociales</a></li>
+                        <li><a href="#">Fiestas</a></li>
+                        <li><a href="#">Boliches</a></li>
+                        <li><a href="#">Festivales</a></li>
                         <li><a href="#">Artistas</a></li>
                     </ul>
                 </div>
 
                 {/* Contact Info */}
                 <div className="footer-contact">
-                    <h3>CONTACTO CLUB</h3>
+                    <h3>CONTACTO</h3>
                     <ul>
-                        <li><MapPin size={18} className="contact-icon" /> Calle del Son 123, Madrid</li>
-                        <li><Phone size={18} className="contact-icon" /> +34 900 800 700</li>
-                        <li><Mail size={18} className="contact-icon" /> preventa@salsapp.club</li>
+                        <li><MapPin size={18} className="contact-icon" /> Buenos Aires, Argentina</li>
+                        <li><Phone size={18} className="contact-icon" /> +54 11 1234 5678</li>
+                        <li><Mail size={18} className="contact-icon" /> contacto@nochepass.com</li>
                     </ul>
                 </div>
             </div>
 
             <div className="footer-bottom">
                 <div className="bottom-content">
-                    <p>&copy; {new Date().getFullYear()} SalsApp Club. Todos los derechos reservados.</p>
+                    <p>&copy; {new Date().getFullYear()} NochePass. Todos los derechos reservados.</p>
                     <div className="legal-links">
                         <a href="#">Privacidad</a>
                         <a href="#">Términos</a>

@@ -2,21 +2,39 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { authService } from '../services/authService';
 import { User } from '../types';
 
+// ==========================================
+// 1. DEFINICIÓN DEL TIPO DE CONTEXTO
+// Especifica qué datos y funciones estarán accesibles
+// globalmente en toda la aplicación.
+// ==========================================
 interface AuthContextType {
-    user: User | null;
-    login: (userData: User) => void;
-    logout: () => Promise<void>;
-    isLogged: boolean;
-    loading: boolean;
-    verificarSesion?: () => Promise<void>;
+    user: User | null;                      // Datos del usuario logueado o null si no hay sesión
+    login: (userData: User) => void;        // Función para guardar el usuario tras iniciar sesión
+    logout: () => Promise<void>;            // Función para cerrar la sesión actual
+    isLogged: boolean;                      // Booleano rápido para saber si está autenticado (true/false)
+    loading: boolean;                       // Booleano que indica si se está comprobando la sesión
+    verificarSesion?: () => Promise<void>;  // Función para re-verificar y actualizar los datos del usuario
 }
 
+// Crea el contexto de autenticación de React con valor inicial undefined
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// ==========================================
+// 2. PROVEEDOR DE AUTENTICACIÓN (AuthProvider)
+// Envuelve los componentes hijos para suministrarles el estado de la sesión
+// ==========================================
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    // Estado que guarda la información del usuario autenticado
     const [user, setUser] = useState<User | null>(null);
+    // Estado que controla la pantalla de carga inicial al abrir o recargar la app
     const [loading, setLoading] = useState(true);
 
+    /**
+     * Comprueba si el usuario tiene una sesión activa previa:
+     * 1. Revisa si existe la bandera 'isAuthenticated' en el almacenamiento local (localStorage).
+     * 2. Si existe, consulta al backend (/api/auth/me) para obtener los datos actualizados del usuario.
+     * 3. Si la sesión expiró o hay error, limpia el almacenamiento y resetea el usuario a null.
+     */
     const verificarSesion = async () => {
         const isAuthenticated = localStorage.getItem('isAuthenticated');
         if (!isAuthenticated) {
@@ -35,15 +53,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     };
 
+    // Ejecuta la verificación de sesión automáticamente una sola vez al cargar la app
     useEffect(() => {
         verificarSesion();
     }, []);
 
+    /**
+     * Inicia sesión en el frontend:
+     * Guarda el usuario en el estado y marca 'isAuthenticated' en localStorage.
+     */
     const login = (userData: User) => {
         setUser(userData); 
         localStorage.setItem('isAuthenticated', 'true');
     };
 
+    /**
+     * Cierra la sesión:
+     * 1. Llama al endpoint de logout en el backend.
+     * 2. Limpia los datos del usuario en memoria y en localStorage.
+     */
     const logout = async () => {
         try {
             await authService.logout();
@@ -56,16 +84,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
+        // Provee el estado y las funciones a todos los componentes hijos
         <AuthContext.Provider value={{ user, login, logout, isLogged: !!user, loading, verificarSesion }}>
+            {/* Si ya terminó de verificar la sesión, muestra la app; de lo contrario muestra la pantalla de carga inicial */}
             {!loading ? children : (
                 <div className="loading-screen" style={{ textAlign: 'center', padding: '100px' }}>
-                    <h2>Preparando la pista... 💃🕺</h2>
+                    <h2>Bienvendos a nuestro sitio</h2>
                 </div>
             )}
         </AuthContext.Provider>
     );
 };
 
+// ==========================================
+// 3. HOOK PERSONALIZADO (useAuth)
+// Permite a cualquier componente acceder al contexto fácilmente:
+// Ejemplo de uso: const { user, isLogged, logout } = useAuth();
+// ==========================================
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {

@@ -107,7 +107,24 @@
 }
 
 @media (max-width: 768px) {
+  .tickets-page {
+    padding: 80px 16px;
+  }
+  .tickets-header {
+    margin-bottom: 50px;
+  }
+  .events-buy-list {
+    gap: 60px;
+  }
+  .event-buy-header {
+    margin-bottom: 30px;
+    padding-left: 16px;
+  }
   .event-buy-header h2 {
     font-size: 1.8rem;
+  }
+  .tiers-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 }

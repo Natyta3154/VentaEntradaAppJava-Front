@@ -1,6 +1,7 @@
 // 1. IMPORTANTE: Agregamos useState aquí
 import React, { useState } from 'react'; 
 import { useGaleria } from '../../hooks/useGaleria';
+import SEO from '../../components/SEO/SEO';
 import './Galeria.css';
 
 const Galeria = () => {
@@ -18,6 +19,11 @@ const Galeria = () => {
 
   return (
     <section className="galeria-section">
+      <SEO
+        title="Galería "
+        description="Revive las mejores noches de rumba, baile y música en vivo en nuestra galería de fotos y videos de EntradaYa." 
+        keywords="galeria, fotos, videos, entradas, eventos, EntradaYa"
+      />
       <div className="galeria-header">
         <span className="subtitle">Nuestros Recuerdos</span>
         <h2 className="galeria-title">Momentos de los eventos</h2>

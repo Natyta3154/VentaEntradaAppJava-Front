@@ -55,3 +55,25 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+/* Mobile-First Touch & Responsive Base */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+button, a, input, select, textarea {
+  touch-action: manipulation;
+}
+
+/* Safe Area Insets for Modern Mobile Browsers (Notch / Home Bar) */
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

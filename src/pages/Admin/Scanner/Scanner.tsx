@@ -87,7 +87,7 @@ const Scanner = () => {
                 <h1 className="text-3xl font-black m-0 tracking-tight text-white drop-shadow-[0_0_15px_rgba(139,92,246,0.5)]">
                     VALIDADOR DE <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-500">ACCESO</span>
                 </h1>
-                <p className="text-gray-400 text-sm mt-2 font-medium">Personal de Puerta • Salsa Club</p>
+                <p className="text-gray-400 text-sm mt-2 font-medium">Personal de Puerta • NochePass</p>
             </header>
 
             <div className="w-full max-w-lg bg-zinc-900/80 backdrop-blur-md rounded-3xl p-6 border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.5)] relative overflow-hidden">
