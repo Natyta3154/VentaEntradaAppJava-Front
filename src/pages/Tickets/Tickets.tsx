@@ -10,6 +10,7 @@ import Skeleton from '../../components/UI/Skeleton/Skeleton';
 // Global Components
 import TicketTierCard from '../../components/Cards/TicketTierCard/TicketTierCard';
 import SEO from '../../components/SEO/SEO';
+import { safeRedirectToCheckout } from '../../utils/security';
 
 const Tickets = () => {
   const navigate = useNavigate();
@@ -28,8 +29,9 @@ const Tickets = () => {
         ]
       });
 
-      if (response.data.checkoutUrl) {
-        window.location.href = response.data.checkoutUrl;
+      const redirected = safeRedirectToCheckout(response.data?.checkoutUrl);
+      if (!redirected) {
+        alert("No se pudo iniciar el proceso de pago seguro. Verifica la configuración.");
       }
     } catch (err: any) {
       if (err.response?.status === 401) {

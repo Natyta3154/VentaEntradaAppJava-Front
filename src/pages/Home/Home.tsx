@@ -17,10 +17,10 @@ import GalleryItem, { GallerySkeleton } from '../../components/Cards/GalleryItem
 import Modal from '../../components/UI/Modal/Modal';
 import TicketTierCard from '../../components/Cards/TicketTierCard/TicketTierCard';
 import api from '../../api/api';
-import { Evento } from '../../services/eventoService';
-import { Artista } from '../../services/artistaService';
 import { eventoService } from '../../services/eventoService';
 import SEO from '../../components/SEO/SEO';
+import { safeRedirectToCheckout } from '../../utils/security';
+import { Artista, Evento } from '../../types';
 // --- COMPONENTE PRINCIPAL ---
 
 const Home = () => {
@@ -59,15 +59,15 @@ const Home = () => {
                 ]
             });
 
-            // Mercado Pago: Usar sandbox_init_point para pruebas con usuarios de prueba
-            if (response.data.sandbox_init_point) {
-                window.location.href = response.data.sandbox_init_point;
-            } else if (response.data.sandboxInitPoint) {
-                window.location.href = response.data.sandboxInitPoint;
-            } else if (response.data.checkoutUrl) {
-                window.location.href = response.data.checkoutUrl;
-            } else if (response.data.init_point) {
-                window.location.href = response.data.init_point;
+            // Mercado Pago: Usar URL provista de forma validada y segura
+            const checkoutUrl = response.data.sandbox_init_point 
+                || response.data.sandboxInitPoint 
+                || response.data.checkoutUrl 
+                || response.data.init_point;
+
+            const redirected = safeRedirectToCheckout(checkoutUrl);
+            if (!redirected) {
+                alert("No se pudo iniciar el proceso de pago seguro. Verifica la configuración.");
             }
         } catch (err: any) {
             if (err.response?.status === 401) {
@@ -353,7 +353,7 @@ const Home = () => {
             <Modal
                 isOpen={isTicketModalOpen}
                 onClose={() => setIsTicketModalOpen(false)}
-                title="Slecciona tu Entrada"
+                title="Selecciona tu Entrada"
             >
                 {selectedEvento && (
                     <div className="modal-tickets-container">

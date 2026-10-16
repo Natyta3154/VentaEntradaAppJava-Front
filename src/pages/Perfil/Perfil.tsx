@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import authService from '../../services/authService'; // Importante importar tu servicio
 import { User, Mail, Save, Edit2, X, Ticket, ScanQrCode, ShieldCheck } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getSafeResourceUrl } from '../../utils/security';
 import './Perfil.css';
 
 const Perfil = () => {
+    const navigate = useNavigate();
     const { user, loading, verificarSesion } = useAuth(); // Extraemos verificarSesion para actualizar el estado global
     const [editMode, setEditMode] = useState(false);
 
@@ -57,7 +59,7 @@ const Perfil = () => {
     return (
         <div className="perfil-container">
             <header className="perfil-header">
-                <h1>HOLA, <span>{infoUser?.email?.toUpperCase()}</span> 🕺</h1>
+                <h1>HOLA, <span>{infoUser?.nombre ? `${infoUser.nombre} ${infoUser.apellido || ''}`.trim().toUpperCase() : infoUser?.email?.toUpperCase()}</span> 🕺</h1>
                 <p>Gestiona tu cuenta y revisa tus entradas para la rumba.</p>
             </header>
 
@@ -156,7 +158,7 @@ const Perfil = () => {
                                         <h3>{ticket.evento_nombre}</h3>
                                         <p className="ticket-date">{ticket.fecha_evento}</p>
                                         <div className="qr-container">
-                                            <img src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${ticket.codigo_qr}`} alt="QR" />
+                                            <img src={getSafeResourceUrl(ticket.codigo_qr)} alt="QR" />
                                         </div>
                                         <span className="ticket-id">#{ticket.codigo_unico}</span>
                                     </div>
@@ -166,7 +168,7 @@ const Perfil = () => {
                     ) : (
                         <div className="empty-state">
                             <p>No tienes tickets registrados.</p>
-                            <button className="btn-go-shop" onClick={() => window.location.href = '/tickets'}>
+                            <button className="btn-go-shop" onClick={() => navigate('/tickets')}>
                                 COMPRAR ENTRADAS
                             </button>
                         </div>

@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { authService } from '../services/authService';
 import { User } from '../types';
+import { sanitizeUser } from '../utils/security';
 
 // ==========================================
 // 1. DEFINICIÓN DEL TIPO DE CONTEXTO
@@ -9,7 +10,7 @@ import { User } from '../types';
 // ==========================================
 interface AuthContextType {
     user: User | null;                      // Datos del usuario logueado o null si no hay sesión
-    login: (userData: User) => void;        // Función para guardar el usuario tras iniciar sesión
+    login: (userData: any) => void;         // Función para guardar el usuario tras iniciar sesión
     logout: () => Promise<void>;            // Función para cerrar la sesión actual
     isLogged: boolean;                      // Booleano rápido para saber si está autenticado (true/false)
     loading: boolean;                       // Booleano que indica si se está comprobando la sesión
@@ -32,8 +33,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     /**
      * Comprueba si el usuario tiene una sesión activa previa:
      * 1. Revisa si existe la bandera 'isAuthenticated' en el almacenamiento local (localStorage).
-     * 2. Si existe, consulta al backend (/api/auth/me) para obtener los datos actualizados del usuario.
-     * 3. Si la sesión expiró o hay error, limpia el almacenamiento y resetea el usuario a null.
+     * 2. Si existe, consulta al backend (/api/auth/me o refresh) para obtener los datos actualizados del usuario.
+     * 3. Sanitiza los datos antes de persistirlos en el estado en memoria.
+     * 4. Si la sesión expiró o hay error, limpia el almacenamiento y resetea el usuario a null.
      */
     const verificarSesion = async () => {
         const isAuthenticated = localStorage.getItem('isAuthenticated');
@@ -44,7 +46,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         try {
             const data = await authService.getUserInfo();
-            setUser(data); 
+            const cleanUser = sanitizeUser(data);
+            setUser(cleanUser); 
         } catch (error) {
             setUser(null);
             localStorage.removeItem('isAuthenticated');
@@ -60,10 +63,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     /**
      * Inicia sesión en el frontend:
-     * Guarda el usuario en el estado y marca 'isAuthenticated' en localStorage.
+     * Sanitiza y guarda el usuario en el estado y marca 'isAuthenticated' en localStorage.
      */
-    const login = (userData: User) => {
-        setUser(userData); 
+    const login = (userData: any) => {
+        const cleanUser = sanitizeUser(userData);
+        setUser(cleanUser); 
         localStorage.setItem('isAuthenticated', 'true');
     };
 
@@ -76,7 +80,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
             await authService.logout();
         } catch (error) {
-            console.error("Error al cerrar sesión:", error);
+            if (import.meta.env.DEV) {
+                console.error("Error al cerrar sesión:", error);
+            }
         } finally {
             setUser(null);
             localStorage.removeItem('isAuthenticated');

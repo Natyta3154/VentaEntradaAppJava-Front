@@ -43,9 +43,9 @@ const Navbar = () => {
           {isLogged && (
             <div className="mobile-user-info mobile-only">
               <div className="avatar-circle">
-                {infoUser?.email?.charAt(0).toUpperCase() || "U"}
+                {(infoUser?.nombre?.charAt(0) || infoUser?.email?.charAt(0) || "U").toUpperCase()}
               </div>
-              <span className="user-name">{infoUser?.email}</span>
+              <span className="user-name">{infoUser?.nombre ? `${infoUser.nombre} ${infoUser.apellido || ''}`.trim() : infoUser?.email}</span>
             </div>
           )}
 
@@ -79,9 +79,9 @@ const Navbar = () => {
             <div className="user-dropdown-container">
               <div className="user-profile-trigger">
                 <div className="avatar-circle">
-                  {infoUser?.email?.charAt(0).toUpperCase() || "U"}
+                  {(infoUser?.nombre?.charAt(0) || infoUser?.email?.charAt(0) || "U").toUpperCase()}
                 </div>
-                <span className="user-name">{infoUser?.email}</span>
+                <span className="user-name">{infoUser?.nombre || infoUser?.email}</span>
                 <ChevronDown size={16} className="chevron-icon" />
               </div>
 

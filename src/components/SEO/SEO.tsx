@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { sanitizeJsonLd } from '../../utils/security';
 
 interface SEOProps {
     title: string;
@@ -53,7 +54,7 @@ const SEO: React.FC<SEOProps> = ({
         setMetaTag('meta[name="twitter:description"]', 'content', description);
         setMetaTag('meta[name="twitter:image"]', 'content', image);
 
-        // Inyectar o actualizar JSON-LD Schema si se provee
+        // Inyectar o actualizar JSON-LD Schema si se provee (sanitizado contra XSS)
         let scriptTag = document.getElementById('json-ld-schema') as HTMLScriptElement | null;
         if (schemaData) {
             if (!scriptTag) {
@@ -62,7 +63,7 @@ const SEO: React.FC<SEOProps> = ({
                 scriptTag.type = 'application/ld+json';
                 document.head.appendChild(scriptTag);
             }
-            scriptTag.textContent = JSON.stringify(schemaData);
+            scriptTag.textContent = sanitizeJsonLd(schemaData);
         } else if (scriptTag) {
             scriptTag.remove();
         }
