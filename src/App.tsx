@@ -7,8 +7,9 @@ import { Toaster } from 'react-hot-toast';
 import ProtectedRoute from './components/ProtectedRoute';
 import StaffRoute from './components/StaffRoute';
 
+import Home from './pages/Home/Home';
+
 // Lazy Loaded Pages
-const Home = lazy(() => import('./pages/Home/Home'));
 const Tickets = lazy(() => import('./pages/Tickets/Tickets'));
 const Login = lazy(() => import('./pages/Login/Login'));
 const Registro = lazy(() => import('./pages/Register/Register'));

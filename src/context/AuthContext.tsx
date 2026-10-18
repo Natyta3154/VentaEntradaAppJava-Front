@@ -92,12 +92,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return (
         // Provee el estado y las funciones a todos los componentes hijos
         <AuthContext.Provider value={{ user, login, logout, isLogged: !!user, loading, verificarSesion }}>
-            {/* Si ya terminó de verificar la sesión, muestra la app; de lo contrario muestra la pantalla de carga inicial */}
-            {!loading ? children : (
-                <div className="loading-screen" style={{ textAlign: 'center', padding: '100px' }}>
-                    <h2>Bienvendos a nuestro sitio</h2>
-                </div>
-            )}
+            {children}
         </AuthContext.Provider>
     );
 };
