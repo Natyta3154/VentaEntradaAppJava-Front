@@ -41,6 +41,10 @@
   line-height: 1.1;
 }
 
+.highlight {
+  color: var(--accent);
+}
+
 .qs-hero p {
   font-size: 1.2rem;
   color: white;
@@ -151,9 +155,8 @@
 }
 
 .value-card p {
-  color: var(--accent-glow);
+  color: #b8b8b8;
   font-size: 0.95rem;
-
   line-height: 1.6;
 }
 

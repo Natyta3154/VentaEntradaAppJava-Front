@@ -184,7 +184,7 @@ const Home = () => {
 
                     <div className="feature-item">
                         <div className="circle-frame">
-                            <img src="https://images.unsplash.com/photo-1524117074681-31bd4bb22ad3?q=80&w=400" alt="Shows en vivo" loading="lazy" />
+                            <img src="https://images.unsplash.com/photo-1524117074681-31bd4bb22ad3?q=80&w=600" alt="Shows en vivo" loading="lazy" />
                         </div>
                         <h3>SHOWS EN <br /><span>VIVO</span></h3>
                         <p>Increíbles coreografías de bailarinas profesionales cada noche.</p>
@@ -204,7 +204,7 @@ const Home = () => {
             <section className="featured-event">
                 <div className="container">
                     <h2 className="section-title-alt">PRÓXIMO <span>EVENTO</span></h2>
-                    <p className="section-subtitle text-white-400">LA CITA OBLIGADA PARA LOS SALSEROS</p>
+                    {/*<p className="section-subtitle text-white-400">LA CITA OBLIGADA PARA LOS SALSEROS</p>*/}
 
                     {loading ? (
                         <div className="event-flex skeleton-featured" style={{ minHeight: '400px' }}>
@@ -236,25 +236,28 @@ const Home = () => {
                                     {new Date(nextEvento.fecha).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' }).toUpperCase()}
                                 </div>
                             </div>
-
                             <div className="event-details-main">
-                                <span className="event-location-tag text-white">{nextEvento.ciudad} • {nextEvento.lugar}</span>
+                                <span className="event-location-tag text-white">
+                                    {nextEvento.ciudad && nextEvento.lugar && nextEvento.ciudad !== nextEvento.lugar 
+                                        ? `${nextEvento.ciudad} • ${nextEvento.lugar}` 
+                                        : (nextEvento.ciudad || nextEvento.lugar || nextEvento.direccion || 'Ubicación')}
+                                </span>
                                 <h3 className="text-white">{nextEvento.titulo.split(' ').slice(0, 3).join(' ')} <br /><span className="text-white">{nextEvento.titulo.split(' ').slice(3).join(' ')}</span></h3>
                                 <p>{nextEvento.descripcion || "Prepárate para una experiencia inmersiva. Esta noche no es solo baile; es un despliegue de talento con orquesta en vivo y lo mejor de la salsa."}</p>
 
                                 <ul className="event-highlights text-white">
-                                    <li>✨ <strong>Artistas:</strong> {nextEventoArtistas && nextEventoArtistas.length > 0 ? nextEventoArtistas.map(a => a.nombre).join(', ') : 'DJs Invitados'}</li>
-                                    <li>🎧 <strong>Ambiente:</strong> Los mejores vinilos de salsa clásica.</li>
-                                    <li>🍹 <strong>Barra:</strong> Coctelería temática toda la noche.</li>
+                                    <li>✨ <strong>Artistas:</strong> {nextEventoArtistas && nextEventoArtistas.length > 0 ? nextEventoArtistas.map(a => a.nombre).join(', ') : (nextEvento.artistas && nextEvento.artistas.length > 0 ? nextEvento.artistas.map(a => a.nombre).join(', ') : 'DJs Invitados')}</li>
+                                    <li>📍 <strong>Dirección:</strong> {nextEvento.direccion || nextEvento.lugar || 'Por confirmar'}</li>
+                                    <li>🏙️ <strong>Ciudad:</strong> {nextEvento.ciudad || 'Por confirmar'}</li>
                                 </ul>
 
                                 <div className="event-actions">
                                     <Button variant="accent" onClick={() => handleOpenTickets(nextEvento)}>
                                         COMPRAR TICKETS
                                     </Button>
-                                    <Button variant="outline" onClick={() => navigate('/contacto')}>
+                                    {/*<Button variant="outline" onClick={() => navigate('/contacto')}>
                                         RESERVAR MESA VIP
-                                    </Button>
+                                    </Button>*/} 
                                 </div>
                             </div>
                         </div>

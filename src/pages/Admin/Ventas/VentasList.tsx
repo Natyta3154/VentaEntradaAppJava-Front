@@ -17,6 +17,9 @@ const VentasList = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [compraToDelete, setCompraToDelete] = useState<AdminCompra | null>(null);
 
+    const [showCleanModal, setShowCleanModal] = useState(false);
+    const [cleaning, setCleaning] = useState(false);
+
     const [showInfoModal, setShowInfoModal] = useState(false);
     const [compraToView, setCompraToView] = useState<AdminCompra | null>(null);
 
@@ -90,19 +93,39 @@ const VentasList = () => {
     };
 
 
+    const handleLimpiarExpiradas = async () => {
+        try {
+            setCleaning(true);
+            const res = await adminVentasService.limpiarExpiradas(false);
+            toast.success(res.mensaje || 'Reservas pendientes liberadas correctamente');
+            loadData();
+        } catch (error: any) {
+            toast.error(error.response?.data?.mensaje || 'Error al limpiar compras expiradas');
+        } finally {
+            setCleaning(false);
+            setShowCleanModal(false);
+        }
+    };
+
     const getEstadoCompraBadge = (estado: string) => {
         switch (estado) {
             case 'COMPLETADA': return <Badge variant="success">Completada</Badge>;
             case 'REEMBOLSADA': return <Badge variant="danger">Reembolsada</Badge>;
-            default: return <Badge variant="warning">{estado}</Badge>;
+            case 'CANCELADA': return <Badge variant="danger">Cancelada</Badge>;
+            case 'PENDIENTE': return <Badge variant="warning">Pendiente</Badge>;
+            default: return <Badge variant="default">{estado}</Badge>;
         }
     };
 
     const getEstadoEntradaBadge = (estado: string) => {
         switch (estado) {
-            case 'VENDIDA': return <Badge variant="warning">No Validada</Badge>;
-            case 'VALIDADA': return <Badge variant="success">Validada</Badge>;
-            case 'ANULADA': return <Badge variant="danger">Anulada</Badge>;
+            case 'VENDIDA':
+            case 'VALIDA': return <Badge variant="success">Válida</Badge>;
+            case 'VALIDADA':
+            case 'USADA': return <Badge variant="info">Ingresó</Badge>;
+            case 'RESERVADA': return <Badge variant="warning">Reservada</Badge>;
+            case 'CANCELADA':
+            case 'ANULADA': return <Badge variant="danger">Cancelada</Badge>;
             default: return <Badge variant="default">{estado}</Badge>;
         }
     };
@@ -128,27 +151,39 @@ const VentasList = () => {
                     <p className="text-gray-400 mt-1">Supervisa transacciones y tickets emitidos.</p>
                 </div>
                 
-                <div className="flex bg-gray-800 p-1 rounded-lg border border-gray-700">
-                    <button 
-                        className={`px-4 py-2 rounded-md font-medium text-sm transition-colors ${
-                            activeTab === 'compras' 
-                            ? 'bg-blue-600 text-white shadow' 
-                            : 'text-gray-400 hover:text-white hover:bg-gray-700'
-                        }`}
-                        onClick={() => setActiveTab('compras')}
+                <div className="flex flex-wrap items-center gap-3">
+                    <button
+                        onClick={() => setShowCleanModal(true)}
+                        disabled={cleaning}
+                        title="Cancela reservas pendientes de pago y devuelve los cupos al evento"
+                        className="inline-flex items-center gap-2 px-3.5 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-lg text-sm font-medium transition-colors"
                     >
-                        Compras
+                        <Trash2 className="w-4 h-4" />
+                        {cleaning ? "Limpiando..." : "Limpiar Reservas Pendientes"}
                     </button>
-                    <button 
-                        className={`px-4 py-2 rounded-md font-medium text-sm transition-colors ${
-                            activeTab === 'entradas' 
-                            ? 'bg-blue-600 text-white shadow' 
-                            : 'text-gray-400 hover:text-white hover:bg-gray-700'
-                        }`}
-                        onClick={() => setActiveTab('entradas')}
-                    >
-                        Entradas
-                    </button>
+
+                    <div className="flex bg-gray-800 p-1 rounded-lg border border-gray-700">
+                        <button 
+                            className={`px-4 py-2 rounded-md font-medium text-sm transition-colors ${
+                                activeTab === 'compras' 
+                                ? 'bg-blue-600 text-white shadow' 
+                                : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                            }`}
+                            onClick={() => setActiveTab('compras')}
+                        >
+                            Compras
+                        </button>
+                        <button 
+                            className={`px-4 py-2 rounded-md font-medium text-sm transition-colors ${
+                                activeTab === 'entradas' 
+                                ? 'bg-blue-600 text-white shadow' 
+                                : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                            }`}
+                            onClick={() => setActiveTab('entradas')}
+                        >
+                            Entradas
+                        </button>
+                    </div>
                 </div>
             </div>
             
@@ -239,6 +274,7 @@ const VentasList = () => {
                                     <Th>Propietario</Th>
                                     <Th>ID Compra</Th>
                                     <Th>Estado</Th>
+                                    <Th className="text-right">Acciones</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -250,6 +286,28 @@ const VentasList = () => {
                                         <Td>{entrada.usuarioNombre}</Td>
                                         <Td className="text-gray-400">#{entrada.compraId}</Td>
                                         <Td>{getEstadoEntradaBadge(entrada.estado)}</Td>
+                                        <Td className="text-right">
+                                            {entrada.estado === 'RESERVADA' && (
+                                                <button
+                                                    onClick={() => {
+                                                        setCompraToDelete({
+                                                            id: entrada.compraId,
+                                                            usuarioNombre: entrada.usuarioNombre,
+                                                            usuarioEmail: entrada.usuarioEmail,
+                                                            total: 0,
+                                                            estado: 'PENDIENTE',
+                                                            fechaCompra: '',
+                                                            mercadoPagoId: ''
+                                                        });
+                                                        setShowDeleteModal(true);
+                                                    }}
+                                                    title="Cancelar compra y liberar esta reserva"
+                                                    className="inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium text-red-400 hover:text-white hover:bg-red-600/30 border border-red-500/20 rounded transition-colors"
+                                                >
+                                                    <Trash2 className="w-3.5 h-3.5" /> Liberar
+                                                </button>
+                                            )}
+                                        </Td>
                                     </Tr>
                                 ))}
                             </Tbody>
@@ -281,6 +339,16 @@ const VentasList = () => {
                     setShowDeleteModal(false);
                     setCompraToDelete(null);
                 }}
+                isDestructive={true}
+            />
+
+            <ConfirmModal 
+                isOpen={showCleanModal}
+                title="Limpiar Reservas Pendientes"
+                message="¿Estás seguro que deseas cancelar las compras pendientes y liberar todas las entradas en estado 'RESERVADA'? Esta acción devolverá automáticamente el stock disponible a los eventos."
+                confirmText="Sí, Limpiar Reservas"
+                onConfirm={handleLimpiarExpiradas}
+                onCancel={() => setShowCleanModal(false)}
                 isDestructive={true}
             />
 

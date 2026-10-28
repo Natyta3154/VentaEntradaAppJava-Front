@@ -9,27 +9,61 @@ export const eventoService = {
             params: { page, size, nombre }
         });
         
-        const mapEvento = (e: any): Evento => ({
-            id: e.id,
-            titulo: e.nombre || e.titulo,
-            descripcion: e.descripcion,
-            fecha: e.fechaEvento || e.fecha,
-            fechaFin: e.fechaFin,
-            ciudad: e.ubicacion || e.ciudad,
-            lugar: e.ubicacion || e.lugar,
-            capacidadTotal: e.capacidadTotal || 1000, // Valor por defecto si falta
-            edadMinima: e.edadMinima,
-            estado: e.estado || 'PUBLICADO',
-            precioEntrada: e.precio_entrada || e.precioEntrada || 15000,
-            imagenUrl: e.imagenPortada || e.imagen_portada || e.imagenUrl || "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1200&q=80",
-            artistas: e.artistas || [],
-            tiposTickets: (e.tipos_tickets || e.tiposTickets || []).map((t: any) => ({
-                ...t,
-                activo: t.activo !== undefined ? t.activo : true,
-                stockDisponible: t.stockDisponible !== undefined ? t.stockDisponible : (t.stock_disponible !== undefined ? t.stock_disponible : 0),
-                stockTotal: t.stockTotal !== undefined ? t.stockTotal : (t.stock_total !== undefined ? t.stock_total : 0)
-            }))
-        });
+        const mapEvento = (e: any): Evento => {
+            let ciudad = e.ciudad;
+            let lugar = e.lugar;
+            let direccion = e.direccion || e.direccionEvento;
+
+            if (e.ubicacion) {
+                if (e.ubicacion.includes(',')) {
+                    const parts = e.ubicacion.split(',').map((s: string) => s.trim());
+                    if (!lugar) lugar = parts[0];
+                    if (!ciudad) ciudad = parts.slice(1).join(', ');
+                } else {
+                    if (!lugar && !ciudad) {
+                        lugar = e.ubicacion;
+                        ciudad = e.ciudad || 'Buenos Aires';
+                    } else if (!lugar) {
+                        lugar = e.ubicacion;
+                    } else if (!ciudad) {
+                        ciudad = e.ciudad || e.ubicacion;
+                    }
+                }
+            }
+
+            if (!direccion) {
+                direccion = lugar || e.ubicacion || 'Dirección a confirmar';
+            }
+            if (!ciudad) {
+                ciudad = e.ciudad || 'Ciudad a confirmar';
+            }
+            if (!lugar) {
+                lugar = e.lugar || direccion || 'Lugar a confirmar';
+            }
+
+            return {
+                id: e.id,
+                titulo: e.nombre || e.titulo,
+                descripcion: e.descripcion,
+                fecha: e.fechaEvento || e.fecha,
+                fechaFin: e.fechaFin,
+                ciudad,
+                lugar,
+                direccion,
+                capacidadTotal: e.capacidadTotal || 1000,
+                edadMinima: e.edadMinima,
+                estado: e.estado || 'PUBLICADO',
+                precioEntrada: e.precio_entrada || e.precioEntrada || 15000,
+                imagenUrl: e.imagenPortada || e.imagen_portada || e.imagenUrl || "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1200&q=80",
+                artistas: e.artistas || [],
+                tiposTickets: (e.tipos_tickets || e.tiposTickets || []).map((t: any) => ({
+                    ...t,
+                    activo: t.activo !== undefined ? t.activo : true,
+                    stockDisponible: t.stockDisponible !== undefined ? t.stockDisponible : (t.stock_disponible !== undefined ? t.stock_disponible : 0),
+                    stockTotal: t.stockTotal !== undefined ? t.stockTotal : (t.stock_total !== undefined ? t.stock_total : 0)
+                }))
+            };
+        };
 
         if (response.data && response.data.content) {
             return {
@@ -46,14 +80,46 @@ export const eventoService = {
     getEventoById: async (id: number | string): Promise<Evento> => {
         const response = await api.get(`/api/eventos/${id}`);
         const e = response.data;
+        let ciudad = e.ciudad;
+        let lugar = e.lugar;
+        let direccion = e.direccion || e.direccionEvento;
+
+        if (e.ubicacion) {
+            if (e.ubicacion.includes(',')) {
+                const parts = e.ubicacion.split(',').map((s: string) => s.trim());
+                if (!lugar) lugar = parts[0];
+                if (!ciudad) ciudad = parts.slice(1).join(', ');
+            } else {
+                if (!lugar && !ciudad) {
+                    lugar = e.ubicacion;
+                    ciudad = e.ciudad || 'Buenos Aires';
+                } else if (!lugar) {
+                    lugar = e.ubicacion;
+                } else if (!ciudad) {
+                    ciudad = e.ciudad || e.ubicacion;
+                }
+            }
+        }
+
+        if (!direccion) {
+            direccion = lugar || e.ubicacion || 'Dirección a confirmar';
+        }
+        if (!ciudad) {
+            ciudad = e.ciudad || 'Ciudad a confirmar';
+        }
+        if (!lugar) {
+            lugar = e.lugar || direccion || 'Lugar a confirmar';
+        }
+
         return {
             id: e.id,
             titulo: e.nombre || e.titulo,
             descripcion: e.descripcion,
             fecha: e.fechaEvento || e.fecha,
             fechaFin: e.fechaFin,
-            ciudad: e.ubicacion || e.ciudad,
-            lugar: e.ubicacion || e.lugar,
+            ciudad,
+            lugar,
+            direccion,
             capacidadTotal: e.capacidadTotal || 1000,
             edadMinima: e.edadMinima,
             estado: e.estado || 'PUBLICADO',
@@ -66,15 +132,21 @@ export const eventoService = {
                 stockDisponible: t.stockDisponible !== undefined ? t.stockDisponible : (t.stock_disponible !== undefined ? t.stock_disponible : 0),
                 stockTotal: t.stockTotal !== undefined ? t.stockTotal : (t.stock_total !== undefined ? t.stock_total : 0)
             }))
-            // Sin mocks hardcodeados para tiposTickets!
         };
     },
 
     createEvento: async (eventoData: Omit<Evento, 'id' | 'artistas' | 'tiposTickets'>): Promise<Evento> => {
+        const ubicacionValue = eventoData.lugar && eventoData.ciudad && eventoData.lugar !== eventoData.ciudad
+            ? `${eventoData.lugar}, ${eventoData.ciudad}`
+            : (eventoData.lugar || eventoData.ciudad || eventoData.direccion || '');
+
         const payload = {
             nombre: eventoData.titulo,
             descripcion: eventoData.descripcion,
-            ubicacion: eventoData.ciudad || eventoData.lugar,
+            ubicacion: ubicacionValue,
+            ciudad: eventoData.ciudad,
+            lugar: eventoData.lugar,
+            direccion: eventoData.direccion || eventoData.lugar,
             capacidadTotal: eventoData.capacidadTotal,
             edadMinima: eventoData.edadMinima || 18,
             fechaEvento: eventoData.fecha,
@@ -87,10 +159,17 @@ export const eventoService = {
     },
 
     updateEvento: async (id: number | string, eventoData: Partial<Evento>): Promise<Evento> => {
+        const ubicacionValue = eventoData.lugar && eventoData.ciudad && eventoData.lugar !== eventoData.ciudad
+            ? `${eventoData.lugar}, ${eventoData.ciudad}`
+            : (eventoData.lugar || eventoData.ciudad || eventoData.direccion || '');
+
         const payload = {
             nombre: eventoData.titulo,
             descripcion: eventoData.descripcion,
-            ubicacion: eventoData.ciudad || eventoData.lugar,
+            ubicacion: ubicacionValue,
+            ciudad: eventoData.ciudad,
+            lugar: eventoData.lugar,
+            direccion: eventoData.direccion || eventoData.lugar,
             capacidadTotal: eventoData.capacidadTotal,
             edadMinima: eventoData.edadMinima,
             fechaEvento: eventoData.fecha,

@@ -1,26 +1,26 @@
 import React from 'react';
 import './QuienesSomos.css';
-import { Users, Heart, Music, Award } from 'lucide-react';
+import { ShieldCheck, Zap, Ticket, Sparkles } from 'lucide-react';
 import SEO from '../../components/SEO/SEO';
 
 const QuienesSomos = () => {
     return (
         <div className="quienes-somos-container">
             <SEO
-                title="Quiénes Somos"
-                description="Conoce nuestra historia, equipo y pasión en NochePass. Tu Noche, Tu Entrada."
-                keywords="quienes somos NochePass, equipo NochePass, historia NochePass, eventos, fiestas"
+                title="Quiénes Somos | NochePass"
+                description="Conocé la historia y visión de NochePass, la plataforma digital de compra de entradas y gestión de eventos de la noche."
+                keywords="quienes somos NochePass, venta de entradas, comprar tickets, eventos, boliches, fiestas, entradas digitales"
             />
             {/* HERO SECTION */}
             <section className="qs-hero">
                 <img 
-                    src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?q=80&w=1920" 
-                    alt="Salsa Community" 
+                    src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1920" 
+                    alt="Experiencia de eventos NochePass" 
                     className="qs-hero-bg" 
                 />
                 <div className="qs-hero-content">
-                    <h1>Nuestra <span className="highlight">Pasión</span></h1>
-                    <p>Más que un club, una familia unida por el ritmo de la salsa.</p>
+                    <h1>TU NOCHE, <span className="highlight">TU ENTRADA</span></h1>
+                    <p>La plataforma tecnológica para descubrir, reservar y asegurar tu lugar en los mejores eventos y fiestas.</p>
                 </div>
             </section>
 
@@ -30,24 +30,20 @@ const QuienesSomos = () => {
                     <div className="qs-grid">
                         <div className="qs-image-box">
                             <img 
-                                src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=800" 
-                                alt="Founders" 
+                                src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800" 
+                                alt="Eventos y Fiestas NochePass" 
                             />
                         </div>
                         <div className="qs-text-box">
-                            <h2>Nuestra <span className="highlight">Historia</span></h2>
+                            <h2>REVOLUCIONANDO EL <span className="highlight">TICKETING</span></h2>
                             <p>
-                                Todo comenzó con un sueño en el corazón de la ciudad: crear un espacio 
-                                donde la autenticidad y el sabor de la salsa pudieran florecer sin límites.
+                                <strong>NochePass</strong> nació con un propósito claro: transformar por completo la forma en que las personas compran sus entradas y acceden a sus eventos favoritos.
                             </p>
                             <p>
-                                Desde nuestras primeras noches en locales pequeños hasta convertirnos en 
-                                el referente de la escena salsera, nuestra misión ha sido siempre la misma: 
-                                elevar la experiencia del baile y conectar a las personas a través de la música.
+                                Decidimos dejar en el pasado las filas interminables, los tickets físicos extraviados y los riesgos de estafas o reventas fraudulentas. Creamos un ecosistema 100% digital, seguro y veloz, diseñado tanto para quienes aman salir como para los productores y organizadores de eventos.
                             </p>
                             <p>
-                                Hoy, somos un punto de encuentro para talentos nacionales e internacionales, 
-                                donde cada paso cuenta una historia y cada noche es una celebración de la vida.
+                                Con nuestra tecnología de validación QR en tiempo real y pagos protegidos, aseguramos una experiencia transparente desde el primer clic hasta el momento en que ingresás al show.
                             </p>
                         </div>
                     </div>
@@ -57,40 +53,40 @@ const QuienesSomos = () => {
             {/* VALUES SECTION */}
             <section className="qs-values">
                 <div className="container">
-                    <h2 className="section-title-alt">NUESTROS <span>VALORES</span></h2>
-                    <p className="section-subtitle">LO QUE NOS IMPULSA CADA NOCHE</p>
+                    <h2 className="section-title-alt">NUESTROS <span>PILARES</span></h2>
+                    <p className="section-subtitle">SEGURIDAD, VELOCIDAD Y EXPERIENCIA EN CADA ACCESO</p>
 
                     <div className="values-grid">
                         <div className="value-card">
                             <div className="value-icon">
-                                <Users size={30} />
+                                <ShieldCheck size={30} />
                             </div>
-                            <h3>Comunidad</h3>
-                            <p>Fomentamos un ambiente inclusivo donde todos son bienvenidos, desde principiantes hasta expertos.</p>
+                            <h3>Seguridad y Confianza</h3>
+                            <p>Entradas 100% oficiales y nominales con tecnología anticopia y validación QR instantánea en puerta.</p>
                         </div>
 
                         <div className="value-card">
                             <div className="value-icon">
-                                <Heart size={30} />
+                                <Zap size={30} />
                             </div>
-                            <h3>Pasión</h3>
-                            <p>Ponemos el corazón en cada detalle, desde la selección musical hasta la atención en nuestra barra.</p>
+                            <h3>Compra Instantánea</h3>
+                            <p>Proceso de compra en menos de un minuto con múltiples métodos de pago integrados y confirmación al instante.</p>
                         </div>
 
                         <div className="value-card">
                             <div className="value-icon">
-                                <Music size={30} />
+                                <Ticket size={30} />
                             </div>
-                            <h3>Excelencia</h3>
-                            <p>Trabajamos con los mejores DJs y artistas para garantizar noches inolvidables de alta calidad.</p>
+                            <h3>Tickets Siempre Contigo</h3>
+                            <p>Tus entradas disponibles en tu perfil y descargables en tu celular, listas para ingresar sin necesidad de imprimir.</p>
                         </div>
 
                         <div className="value-card">
                             <div className="value-icon">
-                                <Award size={30} />
+                                <Sparkles size={30} />
                             </div>
-                            <h3>Tradición</h3>
-                            <p>Respetamos las raíces de la salsa mientras innovamos para mantener vivo el género.</p>
+                            <h3>Eventos Exclusivos</h3>
+                            <p>Cartelera curada con las mejores fiestas, festivales, boliches y preventas VIP con beneficios especiales.</p>
                         </div>
                     </div>
                 </div>
@@ -100,31 +96,31 @@ const QuienesSomos = () => {
             <section className="qs-team">
                 <div className="container">
                     <h2 className="section-title-alt">EL <span>EQUIPO</span></h2>
-                    <p className="section-subtitle">LAS MENTES DETRÁS DEL RITMO</p>
+                    <p className="section-subtitle">QUIENES HACEN POSIBLE TU MEJOR NOCHE</p>
                     
                     <div className="team-grid">
                         <div className="team-member">
                             <div className="member-photo">
-                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400" alt="Founding Director" />
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400" alt="Directora de Operaciones" />
                             </div>
-                            <h4>Carlos Rivera</h4>
-                            <span>Director Fundador</span>
+                            <h4>Camila Fontana</h4>
+                            <span>Directora de Operaciones</span>
                         </div>
 
                         <div className="team-member">
                             <div className="member-photo">
-                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400" alt="Lead Instructor" />
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400" alt="Co-Fundador y CEO" />
                             </div>
-                            <h4>Elena Méndez</h4>
-                            <span>Directora de Arte</span>
+                            <h4>Lucas Moretti</h4>
+                            <span>Co-Fundador & CEO</span>
                         </div>
 
                         <div className="team-member">
                             <div className="member-photo">
-                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400" alt="Event Manager" />
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400" alt="Líder de Tecnología" />
                             </div>
-                            <h4>Miguel Soto</h4>
-                            <span>Event Manager</span>
+                            <h4>Martín Benítez</h4>
+                            <span>Líder de Tecnología & Seguridad</span>
                         </div>
                     </div>
                 </div>

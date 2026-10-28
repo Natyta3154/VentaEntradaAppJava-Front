@@ -42,6 +42,13 @@ export const adminVentasService = {
 
     eliminarCompra: async (compraId: number): Promise<void> => {
         await api.delete(`/api/admin/ventas/${compraId}`);
+    },
+
+    limpiarExpiradas: async (soloAntiguas = true): Promise<{ mensaje: string; totalCanceladas: number }> => {
+        const response = await api.post('/api/admin/ventas/limpiar-expiradas', null, {
+            params: { soloAntiguas }
+        });
+        return response.data;
     }
 };
 

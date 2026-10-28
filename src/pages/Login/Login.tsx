@@ -3,12 +3,13 @@ import { useNavigate, Link } from "react-router-dom";
 import './Login.css';
 import { useLogin } from "../../hooks/useLogin.js";
 
-import { User, Lock, ArrowRight } from 'lucide-react';
+import { User, Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import SEO from '../../components/SEO/SEO';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const { ejecutarLogin, loading, error } = useLogin();
     const navigate = useNavigate();
 
@@ -28,8 +29,8 @@ const Login = () => {
                     <div className="auth-icon-wrapper">
                         <User size={32} />
                     </div>
-                    <h2>¡BIENVENIDO! 🕺</h2>
-                    <p>Inicia sesión para vivir la mejor experiencia en NochePass.</p>
+                    <h2>¡BIENVENIDO! A NOCHEPASS  🕺</h2>
+                    <p>Inicia sesión para comprar tus entradas</p>
                 </header>
 
                 <form className="auth-form" onSubmit={handleSubmit}>
@@ -54,13 +55,21 @@ const Login = () => {
                     <div className="input-field">
                         <Lock className="field-icon" size={20} />
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Tu contraseña segura"
                             required
                         />
+                        <button
+                            type="button"
+                            className="password-toggle-btn"
+                            onClick={() => setShowPassword(!showPassword)}
+                            aria-label={showPassword ? "Ocultar contraseña" : "Ver contraseña"}
+                        >
+                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
                     </div>
 
                     <button type="submit" className="btn-auth-primary" disabled={loading}>

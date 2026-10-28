@@ -246,6 +246,27 @@
   font-size: 1.05rem;
 }
 
+.event-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 5px 0 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.event-highlights li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  color: #d8d8d8;
+}
+
+.event-highlights li strong {
+  color: #ffffff;
+}
+
 .btn-accent {
   width: fit-content;
   background: var(--accent);

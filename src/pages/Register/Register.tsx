@@ -7,6 +7,7 @@ import SEO from '../../components/SEO/SEO';
 
 const Registro = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -129,21 +130,34 @@ const Registro = () => {
                             onChange={handleChange}
                             required
                         />
-                        <span className="password-toggle-icon" onClick={() => setShowPassword(!showPassword)}>
+                        <button
+                            type="button"
+                            className="password-toggle-btn"
+                            onClick={() => setShowPassword(!showPassword)}
+                            aria-label={showPassword ? "Ocultar contraseña" : "Ver contraseña"}
+                        >
                             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                        </span>
+                        </button>
                     </div>
 
                     <div className="input-field">
                         <Lock className="field-icon" size={20} />
                         <input
-                            type={showPassword ? "text" : "password"}
+                            type={showConfirmPassword ? "text" : "password"}
                             name="confirmPassword"
                             placeholder="Repetir contraseña"
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             required
                         />
+                        <button
+                            type="button"
+                            className="password-toggle-btn"
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            aria-label={showConfirmPassword ? "Ocultar contraseña" : "Ver contraseña"}
+                        >
+                            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
                     </div>
 
                     <button type="submit" className="btn-auth-primary" disabled={loading}>
